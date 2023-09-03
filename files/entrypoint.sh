@@ -6,6 +6,9 @@ UUID=${UUID:-'98022679-354b-467d-90d3-f6deeedd75ae'}
 WEB_USERNAME=${WEB_USERNAME:-'admin'}
 WEB_PASSWORD=${WEB_PASSWORD:-'password'}
 DOMAINS=$(echo "${DOMAINS:-"openai.com;ai.com"}" | tr -d ' ')
+WARP_PUB=${WARP_PUB:-'bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo='}
+WARP_SECRET=${WARP_SECRET:-'YFYOAdbw1bKTHlNNi+aEjBM3BO7unuFC5rOkMRAz9XY='}
+WARP_IPV6=${WARP_IPV6:-'2606:4700:110:8a36:df92:102a:9602:fa18/128'}
 
 generate_config() {
   cat > config.json << EOF
@@ -195,14 +198,14 @@ generate_config() {
             "tag":"WARP",
             "protocol":"wireguard",
             "settings":{
-                "secretKey":"YFYOAdbw1bKTHlNNi+aEjBM3BO7unuFC5rOkMRAz9XY=",
+                "secretKey":"${WARP_SECRET}",
                 "address":[
                     "172.16.0.2/32",
-                    "2606:4700:110:8a36:df92:102a:9602:fa18/128"
+                    "${WARP_IPV6}"
                 ],
                 "peers":[
                     {
-                        "publicKey":"bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+                        "publicKey":"${WARP_PUB}",
                         "allowedIPs":[
                             "0.0.0.0/0",
                             "::/0"
