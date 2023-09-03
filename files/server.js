@@ -15,7 +15,7 @@ app.get("/", function (req, res) {
   res.status(200).send("hello world");
 });
 
-// 页面访问密码
+// Page access password
 app.use((req, res, next) => {
   const user = auth(req);
   if (user && user.name === username && user.pass === password) {
@@ -25,53 +25,53 @@ app.use((req, res, next) => {
   return res.status(401).send();
 });
 
-//获取系统进程表
+// Get the system process table
 app.get("/status", function (req, res) {
   let cmdStr = "pm2 list; ps -ef";
   exec(cmdStr, function (err, stdout, stderr) {
     if (err) {
-      res.type("html").send("<pre>命令行执行错误：\n" + err + "</pre>");
+      res.type("html").send("<pre>Command line execution error:\n" + err + "</pre>");
     } else {
-      res.type("html").send("<pre>获取守护进程和系统进程表：\n" + stdout + "</pre>");
+      res.type("html").send("<pre>Get daemon and system process tables:\n" + stdout + "</pre>");
     }
   });
 });
 
-//获取系统监听端口
+// Get the system listening port
 app.get("/listen", function (req, res) {
     let cmdStr = "ss -nltp";
     exec(cmdStr, function (err, stdout, stderr) {
       if (err) {
-        res.type("html").send("<pre>命令行执行错误：\n" + err + "</pre>");
+        res.type("html").send("<pre>Command line execution error:\n" + err + "</pre>");
       } else {
-        res.type("html").send("<pre>获取系统监听端口：\n" + stdout + "</pre>");
+        res.type("html").send("<pre>Get the system listening terminal:\n" + stdout + "</pre>");
       }
     });
   });
 
-//获取节点数据
+// Get node data
 app.get("/list", function (req, res) {
     let cmdStr = "bash argo.sh";
     exec(cmdStr, function (err, stdout, stderr) {
       if (err) {
-        res.type("html").send("<pre>命令行执行错误：\n" + err + "</pre>");
+        res.type("html").send("<pre>Command line execution error:\n" + err + "</pre>");
       }
       else {
-        res.type("html").send("<pre>节点数据：\n\n" + stdout + "</pre>");
+        res.type("html").send("<pre>Node data:\n\n" + stdout + "</pre>");
       }
     });
   });
 
-//获取系统版本、内存信息
+// Get system version, memory information
 app.get("/info", function (req, res) {
   let cmdStr = "cat /etc/*release | grep -E ^NAME";
   exec(cmdStr, function (err, stdout, stderr) {
     if (err) {
-      res.send("命令行执行错误：" + err);
+      res.send("Command line execution error:" + err);
     }
     else {
       res.send(
-        "命令行执行结果：\n" +
+        "Command line execution results:\n" +
           "Linux System:" +
           stdout +
           "\nRAM:" +
@@ -87,9 +87,9 @@ app.get("/test", function (req, res) {
   let cmdStr = 'mount | grep " / " | grep "(ro," >/dev/null';
   exec(cmdStr, function (error, stdout, stderr) {
     if (error !== null) {
-      res.send("系统权限为---非只读");
+      res.send("System permissions are --- non-read-only");
     } else {
-      res.send("系统权限为---只读");
+      res.send("System permissions are ---read-only");
     }
   });
 });

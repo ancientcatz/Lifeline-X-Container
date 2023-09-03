@@ -2,9 +2,10 @@
 
 # 设置各变量
 WSPATH=${WSPATH:-'argo'}
-UUID=${UUID:-'de04add9-5c68-8bab-950c-08cd5320df18'}
+UUID=${UUID:-'98022679-354b-467d-90d3-f6deeedd75ae'}
 WEB_USERNAME=${WEB_USERNAME:-'admin'}
 WEB_PASSWORD=${WEB_PASSWORD:-'password'}
+DOMAINS=$(echo "${DOMAINS:-"openai.com;ai.com"}" | tr -d ' ')
 
 generate_config() {
   cat > config.json << EOF
@@ -220,8 +221,14 @@ generate_config() {
             {
                 "type":"field",
                 "domain":[
-                    "domain:openai.com",
-                    "domain:ai.com"
+EOF
+  IFS=";" read -ra domain_array <<< "$DOMAINS"
+  for domain in "${domain_array[@]}"; do
+    cat >> config.json <<EOF
+                    "domain:$domain",
+EOF
+  done
+  cat >> config.json << EOF
                 ],
                 "outboundTag":"WARP"
             }
@@ -284,7 +291,7 @@ trojan://${UUID}@icook.hk:443?security=tls&sni=\${ARGO_DOMAIN}&type=ws&host=\${A
 ss://$(echo "chacha20-ietf-poly1305:${UUID}@icook.hk:443" | base64 -w0)@icook.hk:443#Argo-Shadowsocks
 由于该软件导出的链接不全，请自行处理如下: 传输协议: WS ， 伪装域名: \${ARGO_DOMAIN} ，路径: /${WSPATH}-shadowsocks?ed=2048 ， 传输层安全: tls ， sni: \${ARGO_DOMAIN}
 *******************************************
-小火箭:
+Little rocket:
 ----------------------------
 vless://${UUID}@icook.hk:443?encryption=none&security=tls&type=ws&host=\${ARGO_DOMAIN}&path=/${WSPATH}-vless?ed=2048&sni=\${ARGO_DOMAIN}#Argo-Vless
 ----------------------------
