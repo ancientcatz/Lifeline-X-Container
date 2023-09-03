@@ -1,10 +1,10 @@
 {
-  "name": "express-hello-world",
+  "name": "express-lifeline",
   "version": "1.0.0",
-  "description": "Express Hello World",
+  "description": "Express Lifeline-X",
   "main": "server.js",
-  "repository": "https://github.com/fscarmen2/Argo-X-Container-PaaS",
-  "author": "fscarmen",
+  "repository": "https://github.com/AncientCatz/Lifeline-X",
+  "author": "AncientCatz",
   "license": "MIT",
   "private": false,
   "scripts": {
