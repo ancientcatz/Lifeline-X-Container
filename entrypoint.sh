@@ -8,7 +8,7 @@ WARP_SECRET=${WARP_SECRET:-'8KKI1b0JpNGwD6SGd7vucT0qgyBanVh8MwOMjUl9tkI='}
 WARP_IPV6=${WARP_IPV6:-'2606:4700:110:8502:50d6:b104:46be:71f5/128'}
 
 MIX=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 6)
-#mv x ${MIX}
+mv x ${MIX}
 
 generate() {
   cat > config.json <<EOF
